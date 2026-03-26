@@ -1,0 +1,71 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section { background: $white; }
+
+.card {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-2xl;
+  padding: $space-8;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    border-color: rgba($accent, 0.3);
+    transform: translateY(-3px);
+  }
+}
+
+.quoteIcon {
+  font-size: 2.5rem;
+  color: rgba($accent, 0.2);
+  line-height: 1;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: #facc15;
+  font-size: 1.1rem;
+}
+
+.text {
+  font-size: $text-base;
+  color: $gray-600;
+  line-height: 1.75;
+  flex: 1;
+  font-style: italic;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding-top: $space-4;
+  border-top: 1px solid $gray-100;
+
+  strong {
+    display: block;
+    font-size: $text-sm;
+    font-weight: $font-bold;
+    color: $primary;
+  }
+
+  span {
+    font-size: $text-xs;
+    color: $gray-400;
+  }
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-full;
+  object-fit: cover;
+  border: 2px solid $gray-200;
+}

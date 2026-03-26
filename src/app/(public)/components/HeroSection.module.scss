@@ -1,0 +1,224 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.hero {
+  position: relative;
+  min-height: 92vh;
+  background: $primary-dark;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=70')
+    center/cover no-repeat;
+  opacity: 0.12;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba($primary-dark, 0.97) 0%, rgba($primary, 0.88) 60%, rgba($primary-light, 0.7) 100%);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-16;
+  align-items: center;
+  padding-top: $space-24;
+  padding-bottom: $space-24;
+
+  @include lg {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// ─── Content ──────────────────────────────────────────────────────────────────
+.content {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  background: rgba($accent, 0.15);
+  border: 1px solid rgba($accent, 0.3);
+  color: $accent-light;
+  padding: $space-2 $space-4;
+  border-radius: $radius-full;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  margin-bottom: $space-6;
+
+  svg { font-size: 1rem; }
+}
+
+.headline {
+  @include heading-1;
+  color: $white;
+  margin-bottom: $space-6;
+  line-height: 1.15;
+}
+
+.highlight {
+  color: $accent;
+  position: relative;
+}
+
+.sub {
+  font-size: $text-lg;
+  color: rgba($white, 0.72);
+  line-height: 1.75;
+  max-width: 520px;
+  margin-bottom: $space-10;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+  flex-wrap: wrap;
+  margin-bottom: $space-10;
+}
+
+.phoneBtn {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  color: $white;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  svg {
+    font-size: 1.5rem;
+    color: $accent;
+  }
+
+  small {
+    display: block;
+    font-size: $text-xs;
+    color: rgba($white, 0.55);
+    margin-bottom: 2px;
+  }
+
+  strong {
+    display: block;
+    font-size: $text-base;
+    font-weight: $font-semibold;
+  }
+
+  &:hover { color: $accent; }
+}
+
+.trust {
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+  flex-wrap: wrap;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  color: rgba($white, 0.65);
+  font-size: $text-sm;
+
+  svg { color: $accent; font-size: 1.1rem; }
+  strong { color: $white; }
+}
+
+.starIcon { color: #facc15 !important; }
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: rgba($white, 0.15);
+}
+
+// ─── Image Column ─────────────────────────────────────────────────────────────
+.imageCol {
+  display: none;
+  @include lg { display: block; }
+  animation: fadeInUp 0.9s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.imageCard {
+  position: relative;
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+
+  img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.floatCard {
+  position: absolute;
+  bottom: $space-6;
+  left: $space-6;
+  right: $space-6;
+  background: rgba($white, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: $radius-xl;
+  padding: $space-4 $space-5;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+
+  strong {
+    display: block;
+    font-size: $text-sm;
+    font-weight: $font-bold;
+    color: $primary;
+  }
+
+  p {
+    font-size: $text-xs;
+    color: $gray-500;
+  }
+}
+
+.floatIcon {
+  @include flex-center;
+  width: 42px;
+  height: 42px;
+  border-radius: $radius-lg;
+  background: $accent;
+  color: $white;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+// ─── Wave ─────────────────────────────────────────────────────────────────────
+.wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

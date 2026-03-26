@@ -1,0 +1,9 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section { background: $off-white; }
+
+.cta {
+  text-align: center;
+  margin-top: $space-12;
+}

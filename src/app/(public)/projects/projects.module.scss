@@ -1,0 +1,35 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section { background: $gray-50; }
+
+.filters {
+  display: flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+  margin-bottom: $space-10;
+}
+
+.filter {
+  padding: $space-2 $space-5;
+  border-radius: $radius-full;
+  border: 1.5px solid $gray-300;
+  background: $white;
+  color: $gray-600;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+  font-family: $font-sans;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+
+  &.active {
+    background: $primary;
+    border-color: $primary;
+    color: $white;
+  }
+}

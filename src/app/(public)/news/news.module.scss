@@ -1,0 +1,3 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+.section { background: $gray-50; }

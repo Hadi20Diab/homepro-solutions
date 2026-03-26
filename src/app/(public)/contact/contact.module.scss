@@ -1,0 +1,93 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section { background: $gray-50; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-12;
+  align-items: flex-start;
+
+  @include lg { grid-template-columns: 1fr 1.3fr; }
+}
+
+// Info
+.info {
+  h2 {
+    @include heading-2;
+    color: $primary;
+    margin-bottom: $space-4;
+  }
+
+  p {
+    color: $gray-600;
+    line-height: 1.8;
+    margin-bottom: $space-8;
+  }
+}
+
+.contactItems {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+
+  div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: $text-sm;
+      font-weight: $font-semibold;
+      color: $primary;
+    }
+
+    a, span {
+      font-size: $text-sm;
+      color: $gray-600;
+      text-decoration: none;
+      line-height: 1.5;
+
+      &:hover { color: $accent; }
+    }
+  }
+}
+
+.icon {
+  @include flex-center;
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-lg;
+  background: rgba($accent, 0.1);
+  color: $accent;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+// Form
+.formWrap {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-2xl;
+  padding: $space-8 $space-10;
+  box-shadow: $shadow-md;
+
+  h3 {
+    @include heading-3;
+    color: $primary;
+    margin-bottom: $space-6;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}

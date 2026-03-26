@@ -1,0 +1,28 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.section { background: $gray-50; }
+
+.ctaBanner {
+  margin-top: $space-16;
+  background: linear-gradient(135deg, $primary, $primary-light);
+  border-radius: $radius-2xl;
+  padding: $space-10 $space-12;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-8;
+  flex-wrap: wrap;
+
+  h3 {
+    font-size: $text-2xl;
+    font-weight: $font-bold;
+    color: $white;
+    margin-bottom: $space-2;
+  }
+
+  p {
+    color: rgba($white, 0.75);
+    font-size: $text-base;
+  }
+}

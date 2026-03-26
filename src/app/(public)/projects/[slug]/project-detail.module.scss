@@ -1,0 +1,157 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.section { background: $gray-50; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-10;
+  align-items: flex-start;
+
+  @include lg { grid-template-columns: 1fr 380px; }
+}
+
+// Gallery
+.gallery {
+  background: $white;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  border: 1.5px solid $gray-100;
+  margin-bottom: $space-8;
+}
+
+.galleryTabs {
+  display: flex;
+  border-bottom: 1.5px solid $gray-100;
+}
+
+.tab {
+  flex: 1;
+  padding: $space-4;
+  border: none;
+  background: none;
+  font-family: $font-sans;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $gray-500;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &.active {
+    background: $white;
+    color: $primary;
+    border-bottom: 2px solid $accent;
+    margin-bottom: -1.5px;
+  }
+
+  &:hover:not(.active) { background: $gray-50; }
+}
+
+.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: $space-2;
+  padding: $space-4;
+}
+
+.image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: $radius-lg;
+}
+
+.noImage {
+  padding: $space-12;
+  text-align: center;
+  color: $gray-400;
+  font-size: $text-sm;
+}
+
+// Description
+.desc {
+  background: $white;
+  border-radius: $radius-xl;
+  padding: $space-8;
+  border: 1.5px solid $gray-100;
+  margin-bottom: $space-6;
+
+  h2 {
+    @include heading-3;
+    color: $primary;
+    margin-bottom: $space-4;
+  }
+
+  p {
+    color: $gray-600;
+    line-height: 1.8;
+  }
+}
+
+// Testimonial
+.testimonial {
+  background: rgba($primary, 0.04);
+  border-left: 4px solid $accent;
+  border-radius: 0 $radius-lg $radius-lg 0;
+  padding: $space-6 $space-8;
+
+  p {
+    font-size: $text-lg;
+    color: $gray-700;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: $space-3;
+  }
+
+  cite {
+    font-size: $text-sm;
+    color: $gray-500;
+    font-style: normal;
+    font-weight: $font-semibold;
+  }
+}
+
+// Sidebar cards
+.metaCard, .formCard {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  margin-bottom: $space-6;
+
+  h4 {
+    font-size: $text-lg;
+    font-weight: $font-bold;
+    color: $primary;
+    margin-bottom: $space-4;
+    padding-bottom: $space-3;
+    border-bottom: 1.5px solid $gray-100;
+  }
+}
+
+.metaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding: $space-2 0;
+  font-size: $text-sm;
+  color: $gray-600;
+
+  svg { color: $accent; font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+  strong { color: $gray-800; }
+}
+
+.formCard {
+  p {
+    font-size: $text-sm;
+    color: $gray-500;
+    margin-bottom: $space-5;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
