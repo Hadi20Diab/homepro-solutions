@@ -166,12 +166,14 @@
   p {
     font-size: $text-sm;
     color: rgba($white, 0.4);
+    text-align: center;
   }
 }
 
 .legal {
   display: flex;
   gap: $space-5;
+  justify-content: center;
 
   a {
     font-size: $text-sm;
