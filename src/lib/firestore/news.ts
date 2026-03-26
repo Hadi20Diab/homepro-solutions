@@ -10,10 +10,13 @@ const COL = 'news';
 export async function getNewsPosts(publishedOnly = false): Promise<NewsPost[]> {
   const ref = collection(db, COL);
   const q = publishedOnly
-    ? query(ref, where('isPublished', '==', true), orderBy('createdAt', 'desc'))
+    ? query(ref, where('isPublished', '==', true))
     : query(ref, orderBy('createdAt', 'desc'));
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() } as NewsPost));
+  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() } as NewsPost));
+  return publishedOnly
+    ? docs.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    : docs;
 }
 
 export async function getNewsPostBySlug(slug: string): Promise<NewsPost | null> {

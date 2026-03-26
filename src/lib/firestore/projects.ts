@@ -11,10 +11,13 @@ const SUB_COL = 'projectSubmissions';
 export async function getProjects(publishedOnly = false): Promise<Project[]> {
   const ref = collection(db, COL);
   const q = publishedOnly
-    ? query(ref, where('isActive', '==', true), orderBy('order', 'asc'))
+    ? query(ref, where('isActive', '==', true))
     : query(ref, orderBy('createdAt', 'desc'));
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() } as Project));
+  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() } as Project));
+  return publishedOnly
+    ? docs.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    : docs;
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {

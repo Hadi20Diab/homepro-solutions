@@ -10,10 +10,13 @@ const COL = 'blog';
 export async function getBlogPosts(publishedOnly = false): Promise<BlogPost[]> {
   const ref = collection(db, COL);
   const q = publishedOnly
-    ? query(ref, where('isPublished', '==', true), orderBy('createdAt', 'desc'))
+    ? query(ref, where('isPublished', '==', true))
     : query(ref, orderBy('createdAt', 'desc'));
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id: d.id, ...d.data() } as BlogPost));
+  const docs = snap.docs.map(d => ({ id: d.id, ...d.data() } as BlogPost));
+  return publishedOnly
+    ? docs.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    : docs;
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
