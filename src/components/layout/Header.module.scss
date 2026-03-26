@@ -1,0 +1,162 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: $header-height;
+  background: rgba($white, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: all $transition-base;
+
+  &.scrolled {
+    box-shadow: $shadow-md;
+    border-bottom-color: $gray-200;
+  }
+}
+
+.inner {
+  @include container;
+  @include flex-between;
+  height: 100%;
+}
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $text-xl;
+  font-family: $font-heading;
+  color: $primary;
+  text-decoration: none;
+
+  strong { color: $accent; }
+
+  &:hover { color: $primary; transform: none; }
+}
+
+.logoIcon {
+  font-size: 1.75rem;
+  color: $accent;
+}
+
+// ─── Desktop Nav ──────────────────────────────────────────────────────────────
+.nav {
+  display: none;
+  align-items: center;
+  gap: $space-1;
+
+  @include lg { display: flex; }
+}
+
+.navLink {
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $gray-700;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $primary;
+    background: $gray-100;
+  }
+
+  &.active {
+    color: $accent;
+    font-weight: $font-semibold;
+    background: rgba($accent, 0.08);
+  }
+}
+
+// ─── Actions ──────────────────────────────────────────────────────────────────
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.phone {
+  display: none;
+  align-items: center;
+  gap: $space-1;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $primary;
+  text-decoration: none;
+
+  @include xl { display: flex; }
+
+  svg { color: $accent; }
+
+  &:hover { color: $accent; }
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1.5px solid $gray-300;
+  border-radius: $radius-md;
+  color: $primary;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  @include lg { display: none; }
+
+  &:hover {
+    background: $gray-100;
+    border-color: $gray-400;
+  }
+}
+
+// ─── Mobile Nav ───────────────────────────────────────────────────────────────
+.mobileNav {
+  position: absolute;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  background: $white;
+  border-bottom: 1px solid $gray-200;
+  box-shadow: $shadow-lg;
+  padding: $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  animation: fadeIn 0.15s ease;
+
+  @include lg { display: none; }
+}
+
+.mobileLink {
+  display: block;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  font-weight: $font-medium;
+  color: $gray-700;
+  transition: all $transition-fast;
+
+  &:hover, &.active {
+    color: $primary;
+    background: $gray-100;
+  }
+}
+
+.mobileCta {
+  margin-top: $space-3;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

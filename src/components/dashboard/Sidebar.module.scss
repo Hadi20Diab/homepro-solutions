@@ -1,0 +1,172 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: $sidebar-width;
+  min-height: 100vh;
+  background: $primary-dark;
+  color: rgba($white, 0.8);
+  transition: width $transition-base;
+  flex-shrink: 0;
+
+  &.collapsed {
+    width: 70px;
+  }
+}
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+.logo {
+  @include flex-between;
+  padding: $space-4 $space-4;
+  border-bottom: 1px solid rgba($white, 0.08);
+  min-height: $header-height;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-heading;
+  font-size: $text-lg;
+  font-weight: $font-bold;
+  color: $white;
+  text-decoration: none;
+
+  strong { color: $accent; }
+}
+
+.logoIcon {
+  font-size: 1.5rem;
+  color: $accent;
+}
+
+.collapseBtn {
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  background: rgba($white, 0.08);
+  border: none;
+  border-radius: $radius-md;
+  color: rgba($white, 0.6);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all $transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba($white, 0.15);
+    color: $white;
+  }
+}
+
+// ─── User ─────────────────────────────────────────────────────────────────────
+.user {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4;
+  border-bottom: 1px solid rgba($white, 0.08);
+}
+
+.avatar {
+  @include flex-center;
+  width: 38px;
+  height: 38px;
+  border-radius: $radius-full;
+  background: $accent;
+  color: $white;
+  font-weight: $font-bold;
+  font-size: $text-base;
+  flex-shrink: 0;
+}
+
+.userName {
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: $text-xs;
+  color: rgba($white, 0.45);
+  text-transform: capitalize;
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+.nav {
+  flex: 1;
+  padding: $space-3 $space-2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-3;
+  border-radius: $radius-lg;
+  color: rgba($white, 0.65);
+  text-decoration: none;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  transition: all $transition-fast;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &:hover {
+    background: rgba($white, 0.08);
+    color: $white;
+  }
+
+  &.active {
+    background: $accent;
+    color: $white;
+
+    .navIcon { color: $white; }
+  }
+}
+
+.navIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  color: rgba($white, 0.5);
+  transition: color $transition-fast;
+}
+
+.navLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ─── Sign Out ─────────────────────────────────────────────────────────────────
+.signOut {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-4 $space-5;
+  border: none;
+  border-top: 1px solid rgba($white, 0.08);
+  background: none;
+  color: rgba($white, 0.5);
+  cursor: pointer;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  font-family: $font-sans;
+  transition: all $transition-fast;
+  text-align: left;
+
+  svg { font-size: 1.2rem; flex-shrink: 0; }
+
+  &:hover {
+    color: $error;
+    background: rgba($error, 0.1);
+  }
+}

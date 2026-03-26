@@ -1,0 +1,96 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  padding: $space-8;
+  text-decoration: none;
+  background: $white;
+  border: 1.5px solid $gray-100;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: $accent;
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+
+    .iconWrap {
+      background: $accent;
+      color: $white;
+      transform: scale(1.1);
+    }
+
+    .link { color: $accent; }
+  }
+}
+
+.iconWrap {
+  @include flex-center;
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-xl;
+  background: rgba($accent, 0.1);
+  color: $accent;
+  font-size: 1.75rem;
+  margin-bottom: $space-5;
+  transition: all $transition-base;
+}
+
+.body {}
+
+.title {
+  font-size: $text-xl;
+  font-weight: $font-bold;
+  color: $primary;
+  margin-bottom: $space-3;
+}
+
+.desc {
+  font-size: $text-sm;
+  color: $gray-500;
+  line-height: 1.7;
+  margin-bottom: $space-4;
+}
+
+.features {
+  margin-bottom: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+
+  li {
+    font-size: $text-sm;
+    color: $gray-600;
+    padding-left: $space-4;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: $radius-full;
+      background: $accent;
+    }
+  }
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $primary;
+  margin-top: auto;
+  transition: color $transition-fast;
+
+  svg { transition: transform $transition-fast; }
+
+  &:hover svg { transform: translateX(4px); }
+}

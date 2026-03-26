@@ -1,0 +1,129 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  @include card;
+  background: $white;
+  border: 1.5px solid $gray-100;
+  display: flex;
+  flex-direction: column;
+
+  &:hover .image { transform: scale(1.04); }
+}
+
+.imageWrap {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  display: block;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform $transition-slow;
+}
+
+.featured {
+  position: absolute;
+  top: $space-3;
+  right: $space-3;
+  background: $accent;
+  color: $white;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  padding: $space-1 $space-3;
+  border-radius: $radius-full;
+  text-transform: uppercase;
+}
+
+.body {
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tags {
+  display: flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+  margin-bottom: $space-3;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: $text-xs;
+  color: $accent-dark;
+  background: rgba($accent, 0.08);
+  padding: 2px $space-2;
+  border-radius: $radius-full;
+  font-weight: $font-medium;
+
+  svg { font-size: 0.65rem; }
+}
+
+.title {
+  font-size: $text-lg;
+  font-weight: $font-bold;
+  color: $primary;
+  margin-bottom: $space-3;
+  line-height: 1.3;
+  transition: color $transition-fast;
+
+  &:hover { color: $accent; }
+}
+
+.excerpt {
+  font-size: $text-sm;
+  color: $gray-500;
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: $space-4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.footer {
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: $space-3;
+  margin-top: auto;
+  padding-top: $space-4;
+  border-top: 1px solid $gray-100;
+}
+
+.meta {
+  display: flex;
+  gap: $space-4;
+  flex-wrap: wrap;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $text-xs;
+    color: $gray-400;
+
+    svg { color: $accent; font-size: 0.75rem; }
+  }
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $primary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  svg { transition: transform $transition-fast; }
+  &:hover { color: $accent; svg { transform: translateX(3px); } }
+}

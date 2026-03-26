@@ -1,0 +1,88 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.card {
+  @include card;
+  background: $white;
+  border: 1.5px solid $gray-100;
+  display: flex;
+  flex-direction: column;
+
+  &:hover .image { transform: scale(1.04); }
+}
+
+.imageWrap {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform $transition-slow;
+}
+
+.body {
+  padding: $space-5;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.meta {
+  display: flex;
+  gap: $space-4;
+  flex-wrap: wrap;
+  margin-bottom: $space-3;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-size: $text-xs;
+    color: $gray-400;
+
+    svg { color: $accent; font-size: 0.75rem; }
+  }
+}
+
+.title {
+  font-size: $text-lg;
+  font-weight: $font-bold;
+  color: $primary;
+  margin-bottom: $space-3;
+  line-height: 1.35;
+  transition: color $transition-fast;
+
+  &:hover { color: $accent; }
+}
+
+.excerpt {
+  font-size: $text-sm;
+  color: $gray-500;
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: $space-4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  color: $accent;
+  text-decoration: none;
+  transition: color $transition-fast;
+  margin-top: auto;
+
+  svg { transition: transform $transition-fast; }
+  &:hover svg { transform: translateX(3px); }
+}
