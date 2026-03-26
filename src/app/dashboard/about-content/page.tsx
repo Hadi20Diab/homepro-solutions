@@ -5,6 +5,7 @@ import { FiPlus, FiTrash2, FiSave } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { getAboutContent, setAboutContent } from '@/lib/firestore/siteContent';
 import { AboutContent } from '@/types';
+import ImageUpload from '@/components/ui/ImageUpload';
 import styles from './page.module.scss';
 
 const defaultContent: AboutContent = {
@@ -156,8 +157,12 @@ export default function AboutContentPage() {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Photo URL</label>
-                    <input value={m.image} onChange={e => updateMember(i, 'image', e.target.value)} placeholder="https://..." />
+                    <ImageUpload
+                      label="Photo"
+                      value={m.image}
+                      onChange={url => updateMember(i, 'image', url)}
+                      folder="about"
+                    />
                   </div>
                   <div className="form-group">
                     <label>Short Bio</label>

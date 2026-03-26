@@ -5,6 +5,7 @@ import { FiPlus, FiTrash2, FiCheck, FiSave } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { getHomeContent, setHomeContent } from '@/lib/firestore/siteContent';
 import { HomeContent } from '@/types';
+import ImageUpload from '@/components/ui/ImageUpload';
 import styles from './page.module.scss';
 
 const defaultContent: HomeContent = {
@@ -111,8 +112,12 @@ export default function HomeContentPage() {
               </div>
             </div>
             <div className="form-group">
-              <label>Background Image URL</label>
-              <input value={content.hero.backgroundImage} onChange={e => setContent(c => ({ ...c, hero: { ...c.hero, backgroundImage: e.target.value } }))} placeholder="https://..." />
+              <ImageUpload
+                label="Background Image"
+                value={content.hero.backgroundImage}
+                onChange={url => setContent(c => ({ ...c, hero: { ...c.hero, backgroundImage: url } }))}
+                folder="home"
+              />
             </div>
           </div>
         )}

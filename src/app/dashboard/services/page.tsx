@@ -11,6 +11,7 @@ import {
   deleteService,
 } from '@/lib/firestore/services';
 import { Service } from '@/types';
+import ImageUpload from '@/components/ui/ImageUpload';
 import styles from './page.module.scss';
 
 const emptyForm: Omit<Service, 'id' | 'createdAt' | 'updatedAt'> = {
@@ -19,6 +20,7 @@ const emptyForm: Omit<Service, 'id' | 'createdAt' | 'updatedAt'> = {
   description: '',
   shortDescription: '',
   icon: '',
+  image: '',
   features: [],
   isActive: true,
   order: 0,
@@ -57,6 +59,7 @@ export default function ServicesDashboardPage() {
       description: s.description,
       shortDescription: s.shortDescription || '',
       icon: s.icon || '',
+      image: s.image || '',
       features: s.features || [],
       isActive: s.isActive,
       order: s.order || 0,
@@ -174,6 +177,14 @@ export default function ServicesDashboardPage() {
                   <label>Order</label>
                   <input type="number" value={form.order} onChange={e => setForm({ ...form, order: parseInt(e.target.value) || 0 })} />
                 </div>
+              </div>
+              <div className="form-group">
+                <ImageUpload
+                  label="Service Image (optional)"
+                  value={form.image ?? ''}
+                  onChange={url => setForm({ ...form, image: url })}
+                  folder="services"
+                />
               </div>
               <div className="form-group">
                 <label>Features (one per line)</label>

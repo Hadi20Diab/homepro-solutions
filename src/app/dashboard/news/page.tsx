@@ -11,6 +11,7 @@ import {
   deleteNewsPost,
 } from '@/lib/firestore/news';
 import { NewsPost } from '@/types';
+import ImageUpload from '@/components/ui/ImageUpload';
 import styles from './page.module.scss';
 
 const emptyForm = {
@@ -167,8 +168,12 @@ export default function NewsDashboardPage() {
                 </div>
               </div>
               <div className="form-group">
-                <label>Cover Image URL</label>
-                <input value={form.coverImage} onChange={e => setForm({ ...form, coverImage: e.target.value })} placeholder="https://..." />
+                <ImageUpload
+                  label="Cover Image"
+                  value={form.coverImage}
+                  onChange={url => setForm({ ...form, coverImage: url })}
+                  folder="news"
+                />
               </div>
               <div className="form-group">
                 <label>Excerpt</label>

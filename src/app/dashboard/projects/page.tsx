@@ -4,13 +4,9 @@ import { useEffect, useState } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiCheck, FiImage } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  getProjects,
-  createProject,
-  updateProject,
-  deleteProject,
-} from '@/lib/firestore/projects';
+import { getProjects, createProject, updateProject, deleteProject } from '@/lib/firestore/projects';
 import { Project } from '@/types';
+import ImageUpload from '@/components/ui/ImageUpload';
 import styles from './page.module.scss';
 
 const CATEGORIES = ['Plumbing', 'Electrical', 'AC Repair', 'Cleaning', 'Renovation', 'Other'];
@@ -34,8 +30,6 @@ export default function ProjectsDashboardPage() {
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState({ ...emptyForm });
-  const [beforeInput, setBeforeInput] = useState('');
-  const [afterInput, setAfterInput] = useState('');
   const [saving, setSaving] = useState(false);
 
   const load = async () => {
@@ -50,8 +44,6 @@ export default function ProjectsDashboardPage() {
   const openAdd = () => {
     setEditing(null);
     setForm({ ...emptyForm });
-    setBeforeInput('');
-    setAfterInput('');
     setShowModal(true);
   };
 
@@ -69,8 +61,6 @@ export default function ProjectsDashboardPage() {
       isFeatured: p.isFeatured || false,
       isActive: p.isActive !== false,
     });
-    setBeforeInput((p.beforeImages || []).join('\n'));
-    setAfterInput((p.afterImages || []).join('\n'));
     setShowModal(true);
   };
 
@@ -86,9 +76,7 @@ export default function ProjectsDashboardPage() {
     setSaving(true);
     try {
       const slug = form.slug || form.title.toLowerCase().replace(/\s+/g, '-');
-      const beforeImages = beforeInput.split('\n').map(u => u.trim()).filter(Boolean);
-      const afterImages = afterInput.split('\n').map(u => u.trim()).filter(Boolean);
-      const payload = { ...form, slug, beforeImages, afterImages } as Partial<Project>;
+      const payload = { ...form, slug } as Partial<Project>;
       if (editing) {
         await updateProject(editing.id, payload);
         toast.success('Project updated');
@@ -191,12 +179,56 @@ export default function ProjectsDashboardPage() {
               </div>
               <div className={styles.row}>
                 <div className="form-group">
-                  <label><FiImage style={{ marginRight: 4 }} />Before Image URLs (one per line)</label>
-                  <textarea rows={3} value={beforeInput} onChange={e => setBeforeInput(e.target.value)} placeholder="https://..." />
+                  <label><FiImage style={{ marginRight: 4 }} />Before Images</label>
+                  {form.beforeImages.map((url, idx) => (
+                    <div key={idx} className={styles.imageSlot}>
+                      <ImageUpload
+                        value={url}
+                        onChange={newUrl => {
+                          const arr = [...form.beforeImages];
+                          arr[idx] = newUrl;
+                          setForm({ ...form, beforeImages: arr });
+                        }}
+                        folder="projects"
+                      />
+                      <button
+                        type="button"
+                        className={styles.removeImgBtn}
+                        onClick={() => setForm({ ...form, beforeImages: form.beforeImages.filter((_, i) => i !== idx) })}
+                      >Remove</button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className={styles.addImgBtn}
+                    onClick={() => setForm({ ...form, beforeImages: [...form.beforeImages, ''] })}
+                  ><FiPlus /> Add Before Image</button>
                 </div>
                 <div className="form-group">
-                  <label><FiImage style={{ marginRight: 4 }} />After Image URLs (one per line)</label>
-                  <textarea rows={3} value={afterInput} onChange={e => setAfterInput(e.target.value)} placeholder="https://..." />
+                  <label><FiImage style={{ marginRight: 4 }} />After Images</label>
+                  {form.afterImages.map((url, idx) => (
+                    <div key={idx} className={styles.imageSlot}>
+                      <ImageUpload
+                        value={url}
+                        onChange={newUrl => {
+                          const arr = [...form.afterImages];
+                          arr[idx] = newUrl;
+                          setForm({ ...form, afterImages: arr });
+                        }}
+                        folder="projects"
+                      />
+                      <button
+                        type="button"
+                        className={styles.removeImgBtn}
+                        onClick={() => setForm({ ...form, afterImages: form.afterImages.filter((_, i) => i !== idx) })}
+                      >Remove</button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className={styles.addImgBtn}
+                    onClick={() => setForm({ ...form, afterImages: [...form.afterImages, ''] })}
+                  ><FiPlus /> Add After Image</button>
                 </div>
               </div>
               <div className={styles.checkRow}>

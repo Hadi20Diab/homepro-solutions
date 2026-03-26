@@ -192,3 +192,36 @@
   font-size: $text-sm;
   &:disabled { opacity: 0.6; cursor: not-allowed; }
 }
+
+.imageSlot {
+  margin-bottom: $space-2;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.removeImgBtn {
+  font-size: $text-xs;
+  color: $error;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  &:hover { text-decoration: underline; }
+}
+
+.addImgBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: $text-sm;
+  color: $primary;
+  background: none;
+  border: 1px dashed $primary;
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+  cursor: pointer;
+  margin-top: $space-1;
+  &:hover { background: rgba($primary, 0.05); }
+}
