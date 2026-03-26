@@ -69,10 +69,10 @@ export default function Sidebar() {
       {!collapsed && appUser && (
         <div className={styles.user}>
           <div className={styles.avatar}>
-            {appUser.displayName.charAt(0).toUpperCase()}
+            {(appUser.displayName ?? appUser.email ?? '?').charAt(0).toUpperCase()}
           </div>
           <div>
-            <p className={styles.userName}>{appUser.displayName}</p>
+            <p className={styles.userName}>{appUser.displayName ?? appUser.email}</p>
             <p className={styles.userRole}>{appUser.role}</p>
           </div>
         </div>
