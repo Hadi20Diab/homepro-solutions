@@ -106,6 +106,38 @@ npm run lint       # Run ESLint
 
 ---
 
+## 🌐 Deploy to Vercel
+
+### 1. Push to GitHub
+Make sure your latest code is pushed to your GitHub repository.
+
+### 2. Import Project on Vercel
+1. Go to [vercel.com](https://vercel.com) → **Add New Project**
+2. Import your GitHub repo
+3. Framework will be auto-detected as **Next.js**
+
+### 3. Add Environment Variables
+In the Vercel project settings under **Environment Variables**, add all the same variables from your `.env.local`:
+
+| Variable | Value |
+|----------|-------|
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | your Firebase API key |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `your-project.firebaseapp.com` |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | your Firebase project ID |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `your-project.appspot.com` |
+| `FIREBASE_SERVICE_ACCOUNT` | paste the full JSON contents of your Firebase service account key |
+| `NEXT_PUBLIC_SUPABASE_URL` | your Supabase URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | your Supabase anon key |
+| `NEXT_PUBLIC_SUPABASE_BUCKET` | `homepro-images` |
+
+> **How to get `FIREBASE_SERVICE_ACCOUNT`:**
+> Firebase Console → Project Settings → Service Accounts → Generate new private key → copy the entire JSON content and paste it as the value.
+
+### 4. Deploy
+Click **Deploy**. Vercel will build and publish the site automatically.
+
+---
+
 ## ⚙️ Tech Stack
 
 - **Frontend**: Next.js 16, React, TypeScript, SCSS

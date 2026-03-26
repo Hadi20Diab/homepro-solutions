@@ -6,7 +6,7 @@ import admin from 'firebase-admin';
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
-function createApp(): admin.app.App {
+function getApp(): admin.app.App {
   if (admin.apps.length > 0) return admin.app();
 
   const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
@@ -32,6 +32,16 @@ function createApp(): admin.app.App {
   );
 }
 
-const app = createApp();
-export const adminAuth = app.auth();
-export const adminDb   = app.firestore();
+// Lazy getters — initialization only happens when the value is first accessed,
+// not at module load time. This prevents build failures when env vars are absent.
+export const adminAuth = new Proxy({} as admin.auth.Auth, {
+  get(_, prop) {
+    return (getApp().auth() as unknown as Record<string | symbol, unknown>)[prop];
+  },
+});
+
+export const adminDb = new Proxy({} as admin.firestore.Firestore, {
+  get(_, prop) {
+    return (getApp().firestore() as unknown as Record<string | symbol, unknown>)[prop];
+  },
+});
