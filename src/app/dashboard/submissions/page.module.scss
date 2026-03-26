@@ -1,0 +1,136 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.page { padding: $space-8 $space-10; max-width: 1200px; }
+
+.header {
+  @include flex-between;
+  margin-bottom: $space-8;
+  h1 { font-size: $text-2xl; font-weight: $font-bold; color: $primary; margin-bottom: $space-1; }
+  p { font-size: $text-sm; color: $gray-500; }
+}
+
+.loading { @include flex-center; padding: $space-16; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: $space-6;
+  align-items: start;
+  height: calc(100vh - 200px);
+}
+
+.list {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-xl;
+  overflow-y: auto;
+  height: 100%;
+  box-shadow: $shadow-sm;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: $space-3;
+  align-items: start;
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $gray-100;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: $gray-50; }
+  &.selected { background: #e8eef5; border-left: 3px solid $primary; }
+  &.unread .itemName { font-weight: $font-bold; }
+}
+
+.itemIcon {
+  @include flex-center;
+  width: 36px; height: 36px;
+  background: #fff7ed;
+  border-radius: $radius-full;
+  font-size: 1rem;
+  color: $accent;
+  flex-shrink: 0;
+}
+
+.itemBody { min-width: 0; }
+.itemName { font-weight: $font-semibold; font-size: $text-sm; color: $primary; }
+.itemEmail { font-size: $text-xs; color: $gray-500; margin-top: 2px; }
+.itemProject { font-size: $text-xs; color: $gray-600; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.itemMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $space-1;
+}
+.itemDate { font-size: $text-xs; color: $gray-400; white-space: nowrap; }
+.dot { width: 8px; height: 8px; background: $accent; border-radius: 50%; }
+
+.detail {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-xl;
+  height: 100%;
+  overflow-y: auto;
+  box-shadow: $shadow-sm;
+}
+
+.noSelect {
+  @include flex-center;
+  flex-direction: column;
+  gap: $space-4;
+  height: 100%;
+  color: $gray-300;
+  p { font-size: $text-sm; }
+}
+
+.detailHeader {
+  @include flex-between;
+  padding: $space-6;
+  border-bottom: 1px solid $gray-100;
+  align-items: flex-start;
+
+  h2 { font-size: $text-lg; font-weight: $font-bold; color: $primary; margin-bottom: $space-2; }
+  p { font-size: $text-sm; color: $gray-600; margin-bottom: $space-1; }
+  small { font-size: $text-xs; color: $gray-400; }
+}
+
+.deleteBtn {
+  @include flex-center;
+  width: 36px; height: 36px;
+  border: 1.5px solid $gray-200;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-500;
+  cursor: pointer;
+  transition: all $transition-fast;
+  flex-shrink: 0;
+  &:hover { border-color: $error; color: $error; }
+}
+
+.message {
+  padding: $space-6;
+  font-size: $text-sm;
+  color: $gray-700;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.viewLink {
+  padding: $space-4 $space-6;
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    color: $primary;
+    text-decoration: none;
+    &:hover { color: $accent; }
+  }
+}
+
+.empty { padding: $space-12; text-align: center; color: $gray-400; font-size: $text-sm; }

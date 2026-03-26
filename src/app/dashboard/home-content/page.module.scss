@@ -1,0 +1,125 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.page { padding: $space-8 $space-10; max-width: 900px; }
+
+.header {
+  @include flex-between;
+  margin-bottom: $space-6;
+  h1 { font-size: $text-2xl; font-weight: $font-bold; color: $primary; margin-bottom: $space-1; }
+  p { font-size: $text-sm; color: $gray-500; }
+}
+
+.saveBtn {
+  @include btn-primary;
+  display: inline-flex; align-items: center; gap: $space-2;
+  padding: $space-3 $space-6; font-size: $text-sm;
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+.loading { @include flex-center; padding: $space-16; }
+
+.tabs {
+  display: flex;
+  gap: $space-2;
+  border-bottom: 2px solid $gray-100;
+  margin-bottom: $space-6;
+}
+
+.tab {
+  padding: $space-3 $space-5;
+  border: none;
+  background: transparent;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  color: $gray-500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all $transition-fast;
+
+  &:hover { color: $primary; }
+  &.active { color: $primary; border-bottom-color: $primary; font-weight: $font-semibold; }
+}
+
+.panel {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  box-shadow: $shadow-sm;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+
+  h3 {
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    color: $primary;
+    margin-bottom: $space-2;
+  }
+
+  textarea { resize: vertical; }
+}
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: $space-4; }
+
+.listSection { display: flex; flex-direction: column; gap: $space-3; }
+
+.listHeader {
+  @include flex-between;
+  span { font-size: $text-sm; font-weight: $font-semibold; color: $gray-600; }
+}
+
+.addSmallBtn {
+  display: inline-flex; align-items: center; gap: $space-1;
+  padding: $space-2 $space-4;
+  border: 1.5px solid $primary;
+  border-radius: $radius-lg;
+  background: transparent;
+  color: $primary;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  cursor: pointer;
+  transition: all $transition-fast;
+  &:hover { background: $primary; color: $white; }
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: $space-3;
+  align-items: end;
+  padding: $space-4;
+  background: $gray-50;
+  border-radius: $radius-lg;
+  border: 1px solid $gray-100;
+}
+
+.pointItem {
+  padding: $space-4;
+  background: $gray-50;
+  border-radius: $radius-lg;
+  border: 1px solid $gray-100;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  position: relative;
+}
+
+.removeBtn {
+  @include flex-center;
+  width: 32px; height: 32px;
+  border: 1.5px solid $gray-200;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-400;
+  cursor: pointer;
+  transition: all $transition-fast;
+  flex-shrink: 0;
+  align-self: flex-end;
+  &:hover { border-color: $error; color: $error; }
+}

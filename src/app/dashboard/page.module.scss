@@ -1,0 +1,123 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.page {
+  padding: $space-8 $space-10;
+  max-width: 1200px;
+}
+
+.header {
+  @include flex-between;
+  margin-bottom: $space-8;
+
+  h1 {
+    font-size: $text-2xl;
+    font-weight: $font-bold;
+    color: $primary;
+    margin-bottom: $space-1;
+  }
+
+  p {
+    font-size: $text-sm;
+    color: $gray-500;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-5;
+  margin-bottom: $space-10;
+
+  @include lg { grid-template-columns: repeat(5, 1fr); }
+}
+
+.statCard {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+.statIcon {
+  @include flex-center;
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-lg;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    font-family: $font-heading;
+    font-size: $text-2xl;
+    font-weight: $font-extrabold;
+    color: $primary;
+    line-height: 1;
+  }
+
+  span {
+    font-size: $text-xs;
+    color: $gray-500;
+    margin-top: $space-1;
+  }
+}
+
+.quickLinks {
+  h2 {
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    color: $primary;
+    margin-bottom: $space-4;
+  }
+}
+
+.linkGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-4;
+
+  @include md { grid-template-columns: repeat(4, 1fr); }
+}
+
+.quickLink {
+  background: $white;
+  border: 1.5px solid $gray-100;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  text-align: center;
+  text-decoration: none;
+  color: $primary;
+  font-weight: $font-semibold;
+  font-size: $text-sm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: $accent;
+    color: $accent;
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+.quickIcon {
+  font-size: 1.5rem;
+}

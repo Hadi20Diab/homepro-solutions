@@ -1,0 +1,131 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.page { padding: $space-8 $space-10; max-width: 1100px; }
+
+.header {
+  @include flex-between;
+  margin-bottom: $space-8;
+  h1 { font-size: $text-2xl; font-weight: $font-bold; color: $primary; margin-bottom: $space-1; }
+  p { font-size: $text-sm; color: $gray-500; }
+}
+
+.info {
+  display: inline-flex; align-items: center; gap: $space-2;
+  padding: $space-2 $space-4;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: $radius-lg;
+  font-size: $text-sm;
+  color: #1d4ed8;
+  font-weight: $font-medium;
+}
+
+.loading { @include flex-center; padding: $space-16; }
+
+.table {
+  background: $white; border: 1.5px solid $gray-100;
+  border-radius: $radius-xl; overflow: hidden; box-shadow: $shadow-sm;
+  margin-bottom: $space-8;
+}
+
+.tableHead {
+  display: grid; grid-template-columns: 2fr 2fr 1.5fr 1fr 0.5fr;
+  padding: $space-3 $space-5; background: $gray-50;
+  border-bottom: 1.5px solid $gray-100;
+  font-size: $text-xs; font-weight: $font-semibold;
+  color: $gray-500; text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+.tableRow {
+  display: grid; grid-template-columns: 2fr 2fr 1.5fr 1fr 0.5fr;
+  padding: $space-4 $space-5; border-bottom: 1px solid $gray-100;
+  align-items: center; font-size: $text-sm; color: $gray-700;
+  &:last-child { border-bottom: none; }
+  &:hover { background: $gray-50; }
+}
+
+.userCell { display: flex; align-items: center; gap: $space-3; }
+
+.avatar {
+  @include flex-center;
+  width: 36px; height: 36px;
+  background: #c0d0e0;
+  color: $primary;
+  border-radius: $radius-full;
+  font-weight: $font-bold;
+  font-size: $text-sm;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.name { font-weight: $font-semibold; color: $primary; }
+.email { color: $gray-500; font-size: $text-xs; }
+
+.roleSelect {
+  padding: $space-1 $space-3;
+  border-radius: $radius-full;
+  border: 1.5px solid $gray-200;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  cursor: pointer;
+  background: $white;
+
+  &:focus { outline: none; }
+
+  &.roleAdmin { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+  &.roleBlog { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+  &.roleServices { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+  &.roleProjects { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
+  &.roleNews { background: #fdf4ff; color: #7e22ce; border-color: #e9d5ff; }
+  &.roleViewer { background: $gray-50; color: $gray-600; border-color: $gray-200; }
+}
+
+.actions {
+  display: flex; align-items: center; gap: $space-2;
+  button {
+    @include flex-center;
+    width: 32px; height: 32px;
+    border: 1.5px solid $gray-200; border-radius: $radius-md;
+    background: $white; color: $gray-600; cursor: pointer;
+    transition: all $transition-fast;
+    &.danger:hover { border-color: $error; color: $error; }
+  }
+}
+
+.empty { padding: $space-12; text-align: center; color: $gray-400; font-size: $text-sm; }
+
+.legend {
+  background: $white; border: 1.5px solid $gray-100;
+  border-radius: $radius-xl; padding: $space-6; box-shadow: $shadow-sm;
+
+  h4 { font-size: $text-base; font-weight: $font-semibold; color: $primary; margin-bottom: $space-4; }
+}
+
+.legendGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-3;
+
+  @include lg { grid-template-columns: repeat(3, 1fr); }
+}
+
+.legendItem {
+  display: flex; align-items: center; gap: $space-3;
+  font-size: $text-sm; color: $gray-600;
+}
+
+.roleChip {
+  padding: $space-1 $space-3;
+  border-radius: $radius-full;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  white-space: nowrap;
+
+  &.roleAdmin { background: #fef2f2; color: #991b1b; }
+  &.roleBlog { background: #eff6ff; color: #1d4ed8; }
+  &.roleServices { background: #f0fdf4; color: #166534; }
+  &.roleProjects { background: #fff7ed; color: #9a3412; }
+  &.roleNews { background: #fdf4ff; color: #7e22ce; }
+  &.roleViewer { background: $gray-50; color: $gray-600; }
+}
