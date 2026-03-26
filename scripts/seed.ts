@@ -502,6 +502,38 @@ async function seed() {
   await db.doc('siteContent/about').set(aboutContent);
   console.log('  ✓ siteContent/about');
 
+  // ─── 7. Admin Users ───────────────────────────────────────────────────────
+  console.log('\n📦  Seeding admin users…');
+
+  const seedUsers = [
+    { email: 'admin@homepro.com',    password: 'HomePro@2025!', name: 'Admin',           role: 'admin'           },
+    { email: 'blog@homepro.com',     password: 'HomePro@2025!', name: 'Blog Editor',     role: 'editor_blog'     },
+    { email: 'services@homepro.com', password: 'HomePro@2025!', name: 'Services Editor', role: 'editor_services' },
+    { email: 'projects@homepro.com', password: 'HomePro@2025!', name: 'Projects Editor', role: 'editor_projects' },
+    { email: 'news@homepro.com',     password: 'HomePro@2025!', name: 'News Editor',     role: 'editor_news'     },
+  ];
+
+  for (const u of seedUsers) {
+    try {
+      let uid: string;
+      const existing = await admin.auth().getUserByEmail(u.email).catch(() => null);
+      if (existing) {
+        uid = existing.uid;
+        await admin.auth().updateUser(uid, { password: u.password, displayName: u.name });
+      } else {
+        const created = await admin.auth().createUser({ email: u.email, password: u.password, displayName: u.name });
+        uid = created.uid;
+      }
+      await db.doc(`users/${uid}`).set(
+        { email: u.email, name: u.name, displayName: u.name, role: u.role, createdAt: now },
+        { merge: true },
+      );
+      console.log(`  ✓ user: ${u.email}  (${u.role})`);
+    } catch (e) {
+      console.warn(`  ⚠  could not seed user ${u.email}:`, (e as { message?: string }).message);
+    }
+  }
+
   // ─── Done ──────────────────────────────────────────────────────────────────
   console.log('\n✅  Seed complete!\n');
   process.exit(0);

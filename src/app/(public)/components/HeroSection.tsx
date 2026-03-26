@@ -1,11 +1,28 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { FiArrowRight, FiPhoneCall } from 'react-icons/fi';
 import { MdVerifiedUser, MdTimelapse, MdStar } from 'react-icons/md';
+import { getHomeContent } from '@/lib/firestore/siteContent';
 import styles from './HeroSection.module.scss';
 
+const DEFAULT = {
+  headline: 'Professional Home\nMaintenance &\nRepair Services',
+  subheadline: 'From plumbing fixes to full electrical overhauls — HomePro Solutions delivers quality workmanship, on time, every time. Serving your community with trust since 2010.',
+  ctaText: 'Get a Free Quote',
+  ctaLink: '/contact',
+  backgroundImage: '',
+};
+
 export default function HeroSection() {
+  const [hero, setHero] = useState(DEFAULT);
+
+  useEffect(() => {
+    getHomeContent()
+      .then(d => { if (d?.hero) setHero(d.hero); })
+      .catch(() => {});
+  }, []);
   return (
     <section className={styles.hero}>
       {/* Background */}
@@ -19,20 +36,16 @@ export default function HeroSection() {
           </span>
 
           <h1 className={styles.headline}>
-            Professional Home<br />
-            <span className={styles.highlight}>Maintenance</span> &<br />
-            Repair Services
+            {hero.headline.split('\n').map((line, i) => (
+              <span key={i}>{i === 1 ? <><span className={styles.highlight}>{line}</span><br /></> : <>{line}<br /></>}</span>
+            ))}
           </h1>
 
-          <p className={styles.sub}>
-            From plumbing fixes to full electrical overhauls — HomePro Solutions
-            delivers quality workmanship, on time, every time. Serving your community
-            with trust since 2010.
-          </p>
+          <p className={styles.sub}>{hero.subheadline}</p>
 
           <div className={styles.actions}>
-            <Link href="/contact" className="btn btn--primary btn--lg">
-              Get a Free Quote <FiArrowRight />
+            <Link href={hero.ctaLink || '/contact'} className="btn btn--primary btn--lg">
+              {hero.ctaText || 'Get a Free Quote'} <FiArrowRight />
             </Link>
             <a href="tel:+123456789" className={styles.phoneBtn}>
               <FiPhoneCall />

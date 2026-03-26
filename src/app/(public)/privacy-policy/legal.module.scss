@@ -1,0 +1,48 @@
+@use 'sass:color';
+@use '../../../styles/variables' as *;
+
+.content {
+  max-width: 780px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: $gray-700;
+
+  h2 {
+    font-size: $text-xl;
+    font-weight: $font-bold;
+    color: $gray-900;
+    margin-top: $space-8;
+    margin-bottom: $space-3;
+    padding-bottom: $space-2;
+    border-bottom: 2px solid $gray-100;
+  }
+
+  p { margin-bottom: $space-4; }
+
+  ul {
+    margin: $space-3 0 $space-4 $space-6;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+
+    li { list-style: disc; }
+  }
+
+  a {
+    color: $primary;
+    text-decoration: underline;
+    &:hover { color: color.adjust($primary, $lightness: -10%); }
+  }
+
+  address {
+    font-style: normal;
+    background: $gray-50;
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: $space-5;
+    line-height: 2;
+    margin-top: $space-3;
+  }
+
+  strong { color: $gray-800; }
+}

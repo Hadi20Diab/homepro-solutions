@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FiTrash2, FiUser, FiShield } from 'react-icons/fi';
+import { FiTrash2, FiUser, FiShield, FiPlus, FiX, FiMail, FiLock } from 'react-icons/fi';
 import toast from 'react-hot-toast';
+import { getAuth } from 'firebase/auth';
 import { getUsers, updateUserRole, deleteUser } from '@/lib/firestore/users';
 import { AppUser, UserRole } from '@/types';
 import styles from './page.module.scss';
@@ -28,6 +29,9 @@ const ROLE_COLORS: Record<UserRole, string> = {
 export default function UsersDashboardPage() {
   const [users, setUsers] = useState<AppUser[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [newUser, setNewUser] = useState({ name: '', email: '', password: '', role: 'editor_blog' as UserRole });
 
   const load = async () => {
     setLoading(true);
@@ -55,6 +59,30 @@ export default function UsersDashboardPage() {
     load();
   };
 
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCreating(true);
+    try {
+      const idToken = await getAuth().currentUser?.getIdToken();
+      if (!idToken) throw new Error('Not authenticated');
+      const res = await fetch('/api/users/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${idToken}` },
+        body: JSON.stringify(newUser),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Failed to create user');
+      toast.success(`User ${newUser.email} created!`);
+      setShowModal(false);
+      setNewUser({ name: '', email: '', password: '', role: 'editor_blog' });
+      load();
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Failed to create user');
+    } finally {
+      setCreating(false);
+    }
+  };
+
   const formatDate = (ts: unknown) => {
     if (!ts) return '—';
     const d = (ts as { toDate?: () => Date }).toDate?.() ?? new Date(ts as string);
@@ -68,8 +96,13 @@ export default function UsersDashboardPage() {
           <h1>User Management</h1>
           <p>{users.length} user{users.length !== 1 ? 's' : ''} registered</p>
         </div>
-        <div className={styles.info}>
-          <FiShield /> Admin access only
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <button onClick={() => setShowModal(true)} className={styles.addBtn}>
+            <FiPlus /> Add User
+          </button>
+          <div className={styles.info}>
+            <FiShield /> Admin access only
+          </div>
         </div>
       </div>
 
@@ -134,6 +167,69 @@ export default function UsersDashboardPage() {
           ))}
         </div>
       </div>
+
+      {/* ── Add User Modal ── */}
+      {showModal && (
+        <div className={styles.overlay} onClick={() => setShowModal(false)}>
+          <div className={styles.modal} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2>Add New User</h2>
+              <button onClick={() => setShowModal(false)} className={styles.closeBtn}><FiX /></button>
+            </div>
+            <form onSubmit={handleCreate} className={styles.modalForm}>
+              <div className="form-group">
+                <label>Full Name</label>
+                <div className={styles.inputWrap}>
+                  <FiUser className={styles.inputIcon} />
+                  <input
+                    type="text" placeholder="Jane Smith" required
+                    value={newUser.name}
+                    onChange={e => setNewUser({ ...newUser, name: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Email Address</label>
+                <div className={styles.inputWrap}>
+                  <FiMail className={styles.inputIcon} />
+                  <input
+                    type="email" placeholder="jane@example.com" required
+                    value={newUser.email}
+                    onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <div className={styles.inputWrap}>
+                  <FiLock className={styles.inputIcon} />
+                  <input
+                    type="password" placeholder="Min 6 characters" required minLength={6}
+                    value={newUser.password}
+                    onChange={e => setNewUser({ ...newUser, password: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Role</label>
+                <select
+                  value={newUser.role}
+                  onChange={e => setNewUser({ ...newUser, role: e.target.value as UserRole })}
+                  className={styles.roleSelect}
+                >
+                  {ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
+                </select>
+              </div>
+              <div className={styles.modalActions}>
+                <button type="button" onClick={() => setShowModal(false)} className={styles.cancelBtn}>Cancel</button>
+                <button type="submit" disabled={creating} className={styles.saveBtn}>
+                  {creating ? 'Creating…' : <><FiPlus /> Create User</>}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -115,6 +115,12 @@
   font-size: $text-sm; color: $gray-600;
 }
 
+.addBtn {
+  @include btn-primary;
+  display: inline-flex; align-items: center; gap: $space-2;
+  padding: $space-2 $space-4; font-size: $text-sm;
+}
+
 .roleChip {
   padding: $space-1 $space-3;
   border-radius: $radius-full;
@@ -128,4 +134,66 @@
   &.roleProjects { background: #fff7ed; color: #9a3412; }
   &.roleNews { background: #fdf4ff; color: #7e22ce; }
   &.roleViewer { background: $gray-50; color: $gray-600; }
+}
+
+// ── Add User Modal ────────────────────────────────────────────────────────────
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  padding: $space-4;
+}
+
+.modal {
+  background: $white;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-xl;
+  width: 100%; max-width: 460px;
+  padding: $space-6;
+}
+
+.modalHeader {
+  @include flex-between;
+  margin-bottom: $space-5;
+  h2 { font-size: $text-lg; font-weight: $font-bold; color: $gray-900; }
+}
+
+.closeBtn {
+  @include flex-center;
+  width: 32px; height: 32px;
+  border-radius: $radius-full;
+  border: none; background: $gray-100;
+  color: $gray-600; cursor: pointer;
+  &:hover { background: $gray-200; }
+}
+
+.modalForm { display: flex; flex-direction: column; gap: $space-4; }
+
+.inputWrap {
+  position: relative;
+  input {
+    width: 100%; padding: $space-3 $space-3 $space-3 $space-8;
+    border: 1.5px solid $gray-200; border-radius: $radius-md;
+    font-size: $text-sm; color: $gray-700; background: $white;
+    &:focus { outline: none; border-color: $primary; }
+  }
+}
+
+.inputIcon {
+  position: absolute; left: $space-3; top: 50%; transform: translateY(-50%);
+  color: $gray-400; font-size: 15px; pointer-events: none;
+}
+
+.modalActions {
+  display: flex; justify-content: flex-end; gap: $space-3; padding-top: $space-2;
+}
+
+.cancelBtn { @include btn-outline; padding: $space-3 $space-5; font-size: $text-sm; }
+.saveBtn {
+  @include btn-primary;
+  display: inline-flex; align-items: center; gap: $space-2;
+  padding: $space-3 $space-5; font-size: $text-sm;
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
 }

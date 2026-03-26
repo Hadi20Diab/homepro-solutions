@@ -86,8 +86,8 @@ export default function Footer() {
         <div className="container">
           <p>&copy; {year} HomePro Solutions. All rights reserved.</p>
           <div className={styles.legal}>
-            <Link href="#">Privacy Policy</Link>
-            <Link href="#">Terms of Service</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-of-service">Terms of Service</Link>
           </div>
         </div>
       </div>
