@@ -22,22 +22,22 @@ service cloud.firestore {
     // ─── Public read-only collections ─────────────────────────────────────────
 
     match /services/{docId} {
-      allow read: if resource.data.isActive == true;
+      allow read: if resource.data.isActive == true || isEditor();
       allow write: if isEditor();
     }
 
     match /projects/{docId} {
-      allow read: if resource.data.isActive == true;
+      allow read: if resource.data.isActive == true || isEditor();
       allow write: if isEditor();
     }
 
     match /blog/{docId} {
-      allow read: if resource.data.isPublished == true;
+      allow read: if resource.data.isPublished == true || isEditor();
       allow write: if isEditor();
     }
 
     match /news/{docId} {
-      allow read: if resource.data.isPublished == true;
+      allow read: if resource.data.isPublished == true || isEditor();
       allow write: if isEditor();
     }
 
