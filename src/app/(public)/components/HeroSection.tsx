@@ -7,6 +7,8 @@ import { MdVerifiedUser, MdTimelapse, MdStar } from 'react-icons/md';
 import { getHomeContent } from '@/lib/firestore/siteContent';
 import styles from './HeroSection.module.scss';
 
+const DEFAULT_BG = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=70';
+
 const DEFAULT = {
   headline: 'Professional Home\nMaintenance &\nRepair Services',
   subheadline: 'From plumbing fixes to full electrical overhauls — HomePro Solutions delivers quality workmanship, on time, every time. Serving your community with trust since 2010.',
@@ -26,7 +28,10 @@ export default function HeroSection() {
   return (
     <section className={styles.hero}>
       {/* Background */}
-      <div className={styles.bg} />
+      <div
+        className={styles.bg}
+        style={{ backgroundImage: `url('${hero.backgroundImage || DEFAULT_BG}')` }}
+      />
       <div className={styles.overlay} />
 
       <div className={`container ${styles.inner}`}>

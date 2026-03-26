@@ -217,7 +217,7 @@ async function seed() {
       shortDescription:  '5-zone ducted AC system supplied and installed in a new-build Jumeirah villa.',
       category:          'AC Repair & Installation',
       beforeImages:      ['https://images.unsplash.com/photo-1499916078039-922301b0eb9b?w=800'],
-      afterImages:       ['https://images.unsplash.com/photo-1631648093729-8b6a3d3b56f8?w=800'],
+      afterImages:       ['https://mastermindshvac.com/wp-content/uploads/2026/02/AC-Repair-Dubai-247-Expert-HVAC-Services-Maintenance__.webp'],
       completionDate:    '2025-01-10',
       location:          'Jumeirah 2, Dubai',
       clientTestimonial: 'Incredibly smooth installation. The team cleaned up after themselves and the system has been running perfectly ever since.',
@@ -532,6 +532,114 @@ async function seed() {
     } catch (e) {
       console.warn(`  ⚠  could not seed user ${u.email}:`, (e as { message?: string }).message);
     }
+  }
+
+  // ─── 8. Project Submissions ───────────────────────────────────────────────
+  console.log('\n📦  Seeding projectSubmissions…');
+  await clearCollection('projectSubmissions');
+
+  const projectSubmissions = [
+    {
+      projectId:    'seed-proj-1',
+      projectSlug:  'office-rewiring-business-bay',
+      projectTitle: 'Office Rewiring — Business Bay',
+      name:         'Mohammed Al Farsi',
+      email:        'mohammed.alfarsi@example.com',
+      phone:        '+971 50 123 4567',
+      message:      'We have a similar-sized office in DIFC and are looking for a complete rewiring quote. Could you please advise on availability in March?',
+      createdAt:    new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      read:         false,
+    },
+    {
+      projectId:    'seed-proj-2',
+      projectSlug:  'full-kitchen-renovation-dubai-marina',
+      projectTitle: 'Full Kitchen Renovation — Dubai Marina',
+      name:         'Sarah Thompson',
+      email:        's.thompson@example.com',
+      phone:        '+971 55 987 6543',
+      message:      'I loved the before/after photos of this project! We are planning a similar renovation for our apartment in JBR. How long does a project like this typically take?',
+      createdAt:    new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+      read:         true,
+    },
+    {
+      projectId:    'seed-proj-3',
+      projectSlug:  'villa-ac-system-install-jumeirah',
+      projectTitle: 'Villa AC System Install — Jumeirah',
+      name:         'Fatima Al Zaabi',
+      email:        'fatima.z@example.com',
+      phone:        '+971 52 456 7890',
+      message:      'We need a multi-zone AC system for a 5-bedroom villa in Al Barsha. Would love to discuss the options and get a quotation.',
+      createdAt:    new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+      read:         false,
+    },
+    {
+      projectId:    'seed-proj-4',
+      projectSlug:  'apartment-full-repaint-jlt',
+      projectTitle: 'Apartment Full Repaint — JLT',
+      name:         'Ravi Menon',
+      email:        'ravi.menon@example.com',
+      phone:        '+971 54 333 2211',
+      message:      'Our 3-bedroom apartment in Downtown Dubai needs a full repaint before we move in next month. Can you provide an urgent quote?',
+      createdAt:    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+      read:         true,
+    },
+  ];
+
+  for (const sub of projectSubmissions) {
+    const ref = await db.collection('projectSubmissions').add(sub);
+    console.log(`  ✓ project submission: "${sub.name}" → "${sub.projectTitle}" (${ref.id})`);
+  }
+
+  // ─── 9. Contact Submissions ───────────────────────────────────────────────
+  console.log('\n📦  Seeding contactSubmissions…');
+  await clearCollection('contacts');
+
+  const contactSubmissions = [
+    {
+      name:      'James Hartley',
+      email:     'james.hartley@example.com',
+      phone:     '+971 50 111 2233',
+      service:   'Plumbing',
+      subject:   'Urgent leak under kitchen sink',
+      message:   'I have a persistent leak under my kitchen sink that my landlord has been ignoring. Can you send someone to assess the issue this week?',
+      createdAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
+      read:      false,
+    },
+    {
+      name:      'Aisha Khalid',
+      email:     'aisha.khalid@example.com',
+      phone:     '+971 55 888 9900',
+      service:   'Electrical',
+      subject:   'Circuit breaker tripping repeatedly',
+      message:   'Our main circuit breaker trips every time we run the washing machine and dishwasher at the same time. We need an electrician to check the wiring.',
+      createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+      read:      false,
+    },
+    {
+      name:      'Daniel Osei',
+      email:     'd.osei@example.com',
+      phone:     '+971 52 777 5544',
+      service:   'AC Repair & Installation',
+      subject:   'AC not cooling — possible gas leak',
+      message:   'Our central AC has been blowing warm air for two days. The filter is clean so I suspect a gas issue. Please advise on the earliest available appointment.',
+      createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      read:      true,
+    },
+    {
+      name:      'Noura Hamdan',
+      email:     'noura.hamdan@example.com',
+      phone:     '+971 56 200 3311',
+      service:   'General Enquiry',
+      subject:   'Annual maintenance contract pricing',
+      message:   'We manage 12 residential units in Sports City. Could you please send details of your annual maintenance contract packages and pricing?',
+      createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+      read:      true,
+    },
+  ];
+
+  for (const sub of contactSubmissions) {
+    const ref = await db.collection('contacts').add(sub);
+    console.log(`  ✓ contact submission: "${sub.name}" — "${sub.subject}" (${ref.id})`);
   }
 
   // ─── Done ──────────────────────────────────────────────────────────────────

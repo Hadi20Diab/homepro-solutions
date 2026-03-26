@@ -119,7 +119,7 @@ export default function SubmissionsDashboardPage() {
                 )}
                 <div className={styles.viewLink}>
                   <a
-                    href={`/projects/${selected.projectId}`}
+                    href={`/projects/${selected.projectSlug || selected.projectId}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

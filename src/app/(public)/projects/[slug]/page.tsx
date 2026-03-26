@@ -36,6 +36,7 @@ export default function ProjectDetailPage() {
     try {
       await createProjectSubmission({
         projectId: project.id,
+        projectSlug: project.slug,
         projectTitle: project.title,
         ...form,
       });

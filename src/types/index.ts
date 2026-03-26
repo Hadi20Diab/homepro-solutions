@@ -29,6 +29,7 @@ export interface Service {
 export interface ProjectSubmission {
   id: string;
   projectId: string;
+  projectSlug: string;
   projectTitle: string;
   name: string;
   email: string;
