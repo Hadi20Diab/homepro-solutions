@@ -1,0 +1,68 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helpers ──────────────────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isEditor() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in
+          ['admin', 'editor_blog', 'editor_services', 'editor_projects', 'editor_news'];
+    }
+
+    // ─── Public read-only collections ─────────────────────────────────────────
+
+    match /services/{docId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if isEditor();
+    }
+
+    match /projects/{docId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if isEditor();
+    }
+
+    match /blog/{docId} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if isEditor();
+    }
+
+    match /news/{docId} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if isEditor();
+    }
+
+    match /siteContent/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─── Submission collections (public write, admin read/delete) ──────────────
+
+    match /contacts/{docId} {
+      allow create: if true;            // anyone can submit a contact form
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /projectSubmissions/{docId} {
+      allow create: if true;            // anyone can submit a project inquiry
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ─── Users (admin only) ────────────────────────────────────────────────────
+
+    match /users/{uid} {
+      allow read, write: if isAdmin() || request.auth.uid == uid;
+    }
+
+  }
+}
