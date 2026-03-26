@@ -64,7 +64,9 @@ export default function HeroSection() {
         <div className={styles.imageCol}>
           <div className={styles.imageCard}>
             <img
-              src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80"
+              // src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80"
+              // src="https://cdn.foochia.com/media/cd7a0042-551d-4aa3-8b69-8a0c9c90cad4.webp"
+              src="https://cleanfinderr.com/wp-content/uploads/2024/07/Curtain-cleaning-company-in-Riyadh.jpg"
               alt="Professional home maintenance technician at work"
             />
             <div className={styles.floatCard}>
