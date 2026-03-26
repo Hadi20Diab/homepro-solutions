@@ -1,36 +1,127 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# HomePro Solutions
 
-First, run the development server:
+A full-stack **home maintenance & repair services** website built with **Next.js**, **Firebase**, and **Supabase**. Features a public site, admin dashboard, and CMS for managing services, projects, blog, and customer submissions.
 
+---
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Set Up Environment Variables
+Create a `.env.local` file in the root directory with:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+# Firebase
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=homepro-solutions
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_bucket.appspot.com
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Firebase Admin (for server-side operations)
+FIREBASE_SERVICE_ACCOUNT={"type":"service_account",...}
 
-## Learn More
+# Supabase (image storage)
+NEXT_PUBLIC_SUPABASE_URL=https://your_project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+NEXT_PUBLIC_SUPABASE_BUCKET=homepro-images
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Seed Initial Data
+```bash
+npm run db:seed
+```
+This creates:
+- 4 example projects
+- Blog & news posts
+- 5 admin users (see seed.ts for credentials)
+- Sample submissions
+- Site home & about content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📋 What to Do After First Run
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### ✅ Setup Supabase Storage (for image uploads)
+1. Go to [Supabase Console](https://supabase.com)
+2. Navigate to **Storage** → **homepro-images** bucket → **Policies**
+3. Add a policy:
+   - **Operation**: SELECT, INSERT, DELETE
+   - **Roles**: anon, authenticated
+   - **Policy**: `true`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### ✅ Deploy Firestore Rules
+1. Go to [Firebase Console](https://console.firebase.google.com)
+2. **Firestore Database** → **Rules**
+3. Replace with contents of `firestore.rules`
+4. Click **Publish**
+
+---
+
+## 🏗️ Project Structure
+
+| Path | Purpose |
+|------|---------|
+| `/src/app/(public)` | Public pages (home, projects, blog, about, contact) |
+| `/src/app/dashboard` | Admin dashboard (manage content, submissions, users) |
+| `/src/lib/firestore` | Firestore helpers & queries |
+| `/src/lib/storage.ts` | Supabase image upload/delete |
+| `/scripts/seed.ts` | Database seeding |
+
+---
+
+## 📝 Default Admin Credentials
+
+After running `npm run db:seed`:
+
+| Email | Password | Role |
+|-------|----------|------|
+| admin@homepro.com | HomePro@2025! | admin |
+| projects@homepro.com | HomePro@2025! | editor_projects |
+| services@homepro.com | HomePro@2025! | editor_services |
+| blog@homepro.com | HomePro@2025! | editor_blog |
+| news@homepro.com | HomePro@2025! | editor_news |
+
+---
+
+## 🔧 Useful Commands
+
+```bash
+npm run dev        # Start dev server
+npm run build      # Production build
+npm run db:seed    # Populate test data
+npm run lint       # Run ESLint
+```
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend**: Next.js 16, React, TypeScript, SCSS
+- **Backend/Auth**: Firebase (Auth + Firestore)
+- **Storage**: Supabase
+- **UI**: React Icons, React Hot Toast
+
+---
+
+## ✨ Key Features
+
+✅ Dynamic public website  
+✅ Admin dashboard with role-based access  
+✅ CMS for home, about, projects, blog, news, services  
+✅ Project interest form with dashboard tracking  
+✅ Contact form with submissions  
+✅ Image upload to Supabase  
+✅ User management  
+✅ Mobile-responsive design
